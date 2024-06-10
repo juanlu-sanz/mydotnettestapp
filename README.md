@@ -14,3 +14,8 @@ A quick and dirty way of running these while testing (and ONLY while testing) is
 cd .tekton
 oc delete pr --all && oc apply -f dotnetBuildAndPushImage.yaml && oc apply -f simple-pipeline.yaml && oc create -f pipelinerun.yaml
 ```
+
+## References
+
+- https://access.redhat.com/documentation/en-us/net/8.0/html/getting_started_with_.net_on_openshift_container_platform/assembly_creating-sample-apps_getting-started-with-dotnet-on-openshift#creating-the-mvc-sample-app_assembly_creating-sample-apps
+- https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container?pivots=dotnet-8-0
