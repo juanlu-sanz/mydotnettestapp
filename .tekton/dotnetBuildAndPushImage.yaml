@@ -8,7 +8,6 @@ spec:
       type: string
     - name: containerRegistry
       type: string
-      default: "myfakeacr.azurecr.io"
   steps:
     - name: echo
       image: alpine
