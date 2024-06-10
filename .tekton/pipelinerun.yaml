@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: my-run-
+spec:
+  params:
+    - name: GIT_REPO
+      value: https://github.com/juanlu-sanz/mydotnettestapp
+    - name: GIT_REVISION
+      value: main
+  pipelineRef:
+    name: dotnet-build
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  timeouts:
+    pipeline: 0h10m0s
+  workspaces:
+    - name: shared
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
