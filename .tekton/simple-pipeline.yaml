@@ -6,13 +6,15 @@ spec:
   workspaces:
     - name: shared
   params:
+    - name: containerRegistry
+      type: string
+    - name: csprojPath
+      type: string
     - name: GIT_REPO
       type: string
-      default: "https://github.com/juanlu-sanz/mydotnettestapp"
     - name: GIT_REVISION
       type: string
       default: "main"
-
   tasks:
     - name: fetch-repository
       taskRef:
@@ -27,8 +29,13 @@ spec:
         - name: output
           workspace: shared
     - name: build-dotnet-binary
+      params:
+        - name: containerRegistry
+          value: $(params.containerRegistry)
+        - name: csprojPath
+          value: $(params.csprojPath)
       taskRef:
-        name: dotnet-build
+        name: dotnet-build-and-push-image
         kind: Task
       runAfter:
         - fetch-repository

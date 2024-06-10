@@ -4,10 +4,14 @@ metadata:
   generateName: my-run-
 spec:
   params:
+    - name: containerRegistry
+      value: myacr323232.azurecr.io
     - name: GIT_REPO
       value: https://github.com/juanlu-sanz/mydotnettestapp
     - name: GIT_REVISION
       value: main
+    - name: csprojPath
+      value: "./MySuperWebApp/MySuperWebApp.csproj"
   pipelineRef:
     name: dotnet-build
   taskRunTemplate:

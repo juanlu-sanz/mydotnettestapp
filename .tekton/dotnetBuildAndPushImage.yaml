@@ -1,13 +1,12 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: dotnet-build
+  name: dotnet-build-and-push-image
 spec:
   params:
-    - name: ContainerRegistry
+    - name: csprojPath
       type: string
-      default: "myfakeacr.azurecr.io"
-    - name: ContainerRegistry
+    - name: containerRegistry
       type: string
       default: "myfakeacr.azurecr.io"
   steps:
@@ -25,10 +24,10 @@ spec:
         # dotnet --info
         cd $(workspaces.repository.path)
 
-        dotnet publish ./MySuperWebApp/MySuperWebApp.csproj \
+        dotnet publish $(params.csprojPath) \
         -p:PublishProfile=DefaultContainer \
         -p:ContainerBaseImage=registry.access.redhat.com/ubi8/dotnet-80-runtime:latest \
-        -p:ContainerRegistry=myacr323232.azurecr.io
+        -p:ContainerRegistry=$(params.containerRegistry)
 
   workspaces:
     - name: repository
